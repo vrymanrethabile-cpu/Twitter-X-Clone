@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter/X Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="twitter-container">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <div class="logo">𝕏</div>
+            <div class="mobile-actions">
+                <button class="mobile-search-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.73 3.815-1.945 5.207l4.711 4.711c.389.389.389 1.023 0 1.414-.389.389-1.023.389-1.414 0l-4.711-4.711c-1.392 1.216-3.221 1.945-5.207 1.945-4.694 0-8.5-3.806-8.5-8.5z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sliding Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar" id="leftSidebar">
+            <div class="logo">𝕏</div>
+            
+            <nav>
+                <a href="#" class="nav-item active" data-page="home">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"/>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-item" data-page="explore">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9.6 14.4L8.2 13l2.2-2.2-2.2-2.2 1.4-1.4 3.6 3.6-3.6 3.6zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm5-8h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"/>
+                    </svg>
+                    <span>Explore</span>
+                </a>
+                <a href="#" class="nav-item" data-page="notifications">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21.697 16.468c-.02-.016-2.14-1.64-2.103-6.03.02-2.532-.812-4.782-2.347-6.335C15.872 2.71 14.01 1.94 12.005 1.93h-.013c-2.004.01-3.866.78-5.245 2.174C5.224 5.66 4.39 7.91 4.41 10.436c.037 4.38-2.082 6.014-2.103 6.03C2.063 16.587 2 16.78 2 16.996V18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-1.004c0-.216-.063-.41-.303-.528zM12 22c-1.898 0-3.435-1.435-3.868-3.3h7.736c-.433 1.865-1.97 3.3-3.868 3.3z"/>
+                    </svg>
+                    <span>Notifications</span>
+                </a>
+                <a href="#" class="nav-item" data-page="messages">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"/>
+                    </svg>
+                    <span>Messages</span>
+                </a>
+                <a href="#" class="nav-item" data-page="profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5.636 12.293c0-3.017 2.447-5.464 5.464-5.464 3.017 0 5.464 2.447 5.464 5.464 0 3.017-2.447 5.464-5.464 5.464-3.017 0-5.464-2.447-5.464-5.464zM12 16.757c2.458 0 4.464-2.006 4.464-4.464S14.458 7.829 12 7.829c-2.458 0-4.464 2.006-4.464 4.464S9.542 16.757 12 16.757zM5.636 5.636c0-1.585 1.285-2.871 2.871-2.871h6.986c1.585 0 2.871 1.285 2.871 2.871v12.728c0 1.585-1.285 2.871-2.871 2.871H8.507c-1.585 0-2.871-1.285-2.871-2.871V5.636zM8.507 3.765c-1.033 0-1.871.838-1.871 1.871v12.728c0 1.033.838 1.871 1.871 1.871h6.986c1.033 0 1.871-.838 1.871-1.871V5.636c0-1.033-.838-1.871-1.871-1.871H8.507z"/>
+                    </svg>
+                    <span>Profile</span>
+                </a>
+                
+                <!-- Dark Mode Toggle (Manual Feature) -->
+                <div class="theme-toggle" id="themeToggle">
+                    <svg viewBox="0 0 24 24" fill="currentColor" id="themeIcon">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+                    </svg>
+                    <span id="themeText">Dark Mode</span>
+                </div>
+                
+                <button class="tweet-btn-sidebar" id="sidebarTweetBtn">
+                    <span>Tweet</span>
+                </button>
+                
+                <a href="#" class="nav-item" id="loginBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                    <span>Login</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Feed -->
+        <main class="main-feed">
+            <!-- Home Page -->
+            <div class="home-page" id="homePage">
+                <div class="feed-header">
+                    <h2>Home</h2>
+                </div>
+                
+                <div class="feed-tabs">
+                    <div class="feed-tab active" data-tab="foryou">For you</div>
+                    <div class="feed-tab" data-tab="following">Following</div>
+                </div>
+
+                <!-- Tweet Box -->
+                <div class="tweet-box">
+                    <div class="tweet-box-avatar">K</div>
+                    <div class="tweet-box-content">
+                        <textarea id="tweetInput" placeholder="What is happening?!" rows="1"></textarea>
+                        <div class="tweet-box-actions">
+                            <div class="tweet-box-icons">
+                                <button title="Media">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"/>
+                                    </svg>
+                                </button>
+                                <button title="GIF">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 5.5C3 4.12 4.12 3 5.5 3h13C19.88 3 21 4.119 21 5.5v13c0 1.381-1.12 2.5-2.5 2.5h-13C4.12 21 3 19.881 3 18.5v-13zM5.5 5c-.28 0-.5.224-.5.5v13c0 .276.22.5.5.5h13c.28 0 .5-.224.5-.5v-13c0-.276-.22-.5-.5-.5h-13zM18 10.711V9.25h-3.74v5.5h1.44v-1.719h1.7V11.57h-1.7v-.859H18zM11.79 9.25h1.44v5.5h-1.44v-5.5zm-3.07 1.375c.34 0 .77.172.77.172l.39-1.188s-.47-.266-1.26-.266c-1.44 0-2.23.891-2.23 2.234v.547H5.5v1.25h1.5v2h1.44v-2h1.5v-1.25h-1.5v-.547c0-.516.342-.953.782-.953z"/>
+                                    </svg>
+                                </button>
+                                <button title="Poll">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M6 5c-1.1 0-2 .895-2 2s.9 2 2 2 2-.895 2-2-.9-2-2-2zM2 7c0-2.209 1.79-4 4-4s4 1.791 4 4-1.79 4-4 4-4-1.791-4-4zm20 1H12V6h10v2zM6 15c-1.1 0-2 .895-2 2s.9 2 2 2 2-.895 2-2-.9-2-2-2zm-4 2c0-2.209 1.79-4 4-4s4 1.791 4 4-1.79 4-4 4-4-1.791-4-4zm20 1H12v-2h10v2z"/>
+                                    </svg>
+                                </button>
+                                <button title="Emoji">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 9.5C8 8.119 8.672 7 9.5 7S11 8.119 11 9.5 10.328 12 9.5 12 8 10.881 8 9.5zm6.5 2.5c.828 0 1.5-1.119 1.5-2.5S15.328 7 14.5 7 13 8.119 13 9.5s.672 2.5 1.5 2.5zM12 16c-2.224 0-3.021-2.227-3.051-2.316l-1.897.633c.05.15 1.271 3.684 4.949 3.684s4.898-3.533 4.949-3.684l-1.896-.638c-.033.095-.83 2.322-3.053 2.322zm10.25-4.001c0 5.652-4.598 10.25-10.25 10.25S1.75 17.652 1.75 12 6.348 1.75 12 1.75 22.25 6.348 22.25 12zm-2 0c0-4.549-3.701-8.25-8.25-8.25S3.75 7.451 3.75 12s3.701 8.25 8.25 8.25 8.25-3.701 8.25-8.25z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div>
+                                <span class="character-count" id="charCount">0/280</span>
+                                <button class="tweet-btn" id="tweetBtn" disabled>Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Feed -->
+                <div class="timeline" id="timeline">
+                    <!-- Tweets will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Explore Page -->
+            <div class="explore-page" id="explorePage">
+                <div class="feed-header">
+                    <h2>Explore</h2>
+                </div>
+                <div class="explore-grid">
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Trending in South Africa</div>
+                            <div class="explore-card-posts">125K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Gaming</div>
+                            <div class="explore-card-posts">89K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Technology</div>
+                            <div class="explore-card-posts">234K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Music</div>
+                            <div class="explore-card-posts">456K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Sports</div>
+                            <div class="explore-card-posts">567K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Entertainment</div>
+                            <div class="explore-card-posts">789K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">News</div>
+                            <div class="explore-card-posts">345K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Food</div>
+                            <div class="explore-card-posts">234K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Travel</div>
+                            <div class="explore-card-posts">189K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Art</div>
+                            <div class="explore-card-posts">156K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Books</div>
+                            <div class="explore-card-posts">98K posts</div>
+                        </div>
+                    </div>
+                    <div class="explore-card">
+                        <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=200&fit=crop'); background-size: cover; background-position: center;"></div>
+                        <div class="explore-card-content">
+                            <div class="explore-card-title">Fitness</div>
+                            <div class="explore-card-posts">267K posts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Following Page -->
+            <div class="following-page" id="followingPage">
+                <div class="feed-header">
+                    <h2>Following</h2>
+                </div>
+                <div class="timeline" id="followingTimeline">
+                    <!-- Following tweets will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Notifications Page -->
+            <div class="notifications-page" id="notificationsPage">
+                <div class="feed-header">
+                    <h2>Notifications</h2>
+                </div>
+                <div class="notifications-list">
+                    <div class="notification-item">
+                        <div class="notification-avatar">S</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Sarah Johnson</strong> liked your tweet</div>
+                            <div class="notification-time">2m ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">T</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Tech News</strong> retweeted your tweet</div>
+                            <div class="notification-time">15m ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">W</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Web Developer</strong> started following you</div>
+                            <div class="notification-time">1h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">D</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Design Tips</strong> mentioned you in a tweet</div>
+                            <div class="notification-time">2h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">J</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>JavaScript Daily</strong> replied to your tweet</div>
+                            <div class="notification-time">3h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">C</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Code Master</strong> liked your tweet</div>
+                            <div class="notification-time">4h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">F</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Startup Founder</strong> started following you</div>
+                            <div class="notification-time">5h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">D</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Data Scientist</strong> quoted your tweet</div>
+                            <div class="notification-time">6h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">M</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Mobile Dev</strong> liked your tweet</div>
+                            <div class="notification-time">7h ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-avatar">C</div>
+                        <div class="notification-content">
+                            <div class="notification-text"><strong>Cloud Architect</strong> retweeted your tweet</div>
+                            <div class="notification-time">8h ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Page -->
+            <div class="messages-page" id="messagesPage">
+                <div class="feed-header">
+                    <h2>Messages</h2>
+                </div>
+                <div class="messages-list">
+                    <div class="message-item">
+                        <div class="message-avatar">S</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Sarah Johnson</span>
+                                <span class="message-time">2m</span>
+                            </div>
+                            <div class="message-preview">Hey! Loved your recent tweet about web development...</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">T</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Tech News</span>
+                                <span class="message-time">1h</span>
+                            </div>
+                            <div class="message-preview">Thanks for sharing our article! Keep up the great work...</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">W</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Web Developer</span>
+                                <span class="message-time">3h</span>
+                            </div>
+                            <div class="message-preview">Would you be interested in collaborating on a project?</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">D</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Design Tips</span>
+                                <span class="message-time">5h</span>
+                            </div>
+                            <div class="message-preview">Your UI design skills are impressive! Need any feedback?</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">J</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">JavaScript Daily</span>
+                                <span class="message-time">1d</span>
+                            </div>
+                            <div class="message-preview">Check out our latest newsletter for JS tips!</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">C</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Code Master</span>
+                                <span class="message-time">2d</span>
+                            </div>
+                            <div class="message-preview">Great job on the Twitter clone! Really impressive work...</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">F</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Startup Founder</span>
+                                <span class="message-time">3d</span>
+                            </div>
+                            <div class="message-preview">Let's connect! I'd love to hear about your journey...</div>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">D</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Data Scientist</span>
+                                <span class="message-time">4d</span>
+                            </div>
+                            <div class="message-preview">Interesting perspective on AI and machine learning...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div class="profile-page" id="profilePage">
+                <div class="profile-header">
+                    <div class="profile-cover" style="background-image: url('https://media.easy-peasy.ai/adbae28a-91c2-4e31-80c6-d4a6b20d1bfa/5c6bc2d5-6064-44de-b095-48f20364db1e_medium.webp'); background-size: cover; background-position: center;"></div>
+                    <div class="profile-info">
+                        <div class="profile-avatar-large" style="background-image: url('https://static.vecteezy.com/system/resources/previews/065/754/459/non_2x/headphones-music-listening-audio-sound-girl-woman-portrait-profile-technology-png.png'); background-size: cover; background-position: center;"></div>
+                        <button class="edit-profile-btn">Edit profile</button>
+                    </div>
+                    <div class="profile-details">
+                        <h2 class="profile-name">Rethabile Vryman</h2>
+                        <p class="profile-username">@rethabilevryman</p>
+                        <p class="profile-bio">Web Developer | Tech Enthusiast | Building the future one line of code at a time 🚀</p>
+                        <div class="profile-meta">
+                            <span class="profile-meta-item">📍 South Africa</span>
+                            <span class="profile-meta-item">📧 vrymanrethabile@gmain.com</span>
+                            <span class="profile-meta-item">📅 Joined June 2024</span>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <span class="stat-number">142</span>
+                                <span class="stat-label">Following</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-number">89</span>
+                                <span class="stat-label">Followers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-tabs">
+                    <div class="profile-tab active" data-tab="tweets">Tweets</div>
+                    <div class="profile-tab" data-tab="replies">Replies</div>
+                    <div class="profile-tab" data-tab="media">Media</div>
+                    <div class="profile-tab" data-tab="likes">Likes</div>
+                </div>
+                
+                <div class="profile-tab-content" id="tweetsTab">
+                    <div class="timeline" id="profileTimeline">
+                        <!-- Profile tweets will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="profile-tab-content" id="repliesTab">
+                    <div class="timeline" id="repliesTimeline">
+                        <!-- Replies will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="profile-tab-content" id="mediaTab">
+                    <div class="media-grid" id="mediaGrid">
+                        <!-- Media will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="profile-tab-content" id="likesTab">
+                    <div class="timeline" id="likesTimeline">
+                        <!-- Liked tweets will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="search-bar">
+                <div style="position: relative;">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.73 3.815-1.945 5.207l4.711 4.711c.389.389.389 1.023 0 1.414-.389.389-1.023.389-1.414 0l-4.711-4.711c-1.392 1.216-3.221 1.945-5.207 1.945-4.694 0-8.5-3.806-8.5-8.5z"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search" aria-label="Search tweets">
+                </div>
+            </div>
+
+            <div class="trending-section">
+                <div class="trending-header">Trends for you</div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Technology · Trending</div>
+                    <div class="trending-topic">#WebDevelopment</div>
+                    <div class="trending-posts">45.2K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Sports · Trending</div>
+                    <div class="trending-topic">#WorldCup</div>
+                    <div class="trending-posts">123K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Entertainment · Trending</div>
+                    <div class="trending-topic">#NewMusic</div>
+                    <div class="trending-posts">67.8K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">South Africa · Trending</div>
+                    <div class="trending-topic">#LoadShedding</div>
+                    <div class="trending-posts">89.1K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Coding · Trending</div>
+                    <div class="trending-topic">#JavaScript</div>
+                    <div class="trending-posts">34.5K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Business · Trending</div>
+                    <div class="trending-topic">#StartupLife</div>
+                    <div class="trending-posts">28.9K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Gaming · Trending</div>
+                    <div class="trending-topic">#GamingNews</div>
+                    <div class="trending-posts">156K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Science · Trending</div>
+                    <div class="trending-topic">#AI</div>
+                    <div class="trending-posts">234K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Politics · Trending</div>
+                    <div class="trending-topic">#Elections2024</div>
+                    <div class="trending-posts">445K posts</div>
+                </div>
+                
+                <div class="trending-item">
+                    <div class="trending-category">Lifestyle · Trending</div>
+                    <div class="trending-topic">#HealthyLiving</div>
+                    <div class="trending-posts">56.7K posts</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Bottom Navigation Bar (Mobile) -->
+        <nav class="bottom-nav" id="bottomNav">
+            <a href="#" class="bottom-nav-item active" data-page="home">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"/>
+                </svg>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="#" class="bottom-nav-item" data-page="explore">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9.6 14.4L8.2 13l2.2-2.2-2.2-2.2 1.4-1.4 3.6 3.6-3.6 3.6zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm5-8h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"/>
+                </svg>
+                <span class="nav-label">Explore</span>
+            </a>
+            <a href="#" class="bottom-nav-item" data-page="notifications">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.697 16.468c-.02-.016-2.14-1.64-2.103-6.03.02-2.532-.812-4.782-2.347-6.335C15.872 2.71 14.01 1.94 12.005 1.93h-.013c-2.004.01-3.866.78-5.245 2.174C5.224 5.66 4.39 7.91 4.41 10.436c.037 4.38-2.082 6.014-2.103 6.03C2.063 16.587 2 16.78 2 16.996V18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-1.004c0-.216-.063-.41-.303-.528zM12 22c-1.898 0-3.435-1.435-3.868-3.3h7.736c-.433 1.865-1.97 3.3-3.868 3.3z"/>
+                </svg>
+                <span class="nav-label">Notifications</span>
+            </a>
+            <a href="#" class="bottom-nav-item" data-page="messages">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"/>
+                </svg>
+                <span class="nav-label">Messages</span>
+            </a>
+            <a href="#" class="bottom-nav-item" data-page="profile">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5.636 12.293c0-3.017 2.447-5.464 5.464-5.464 3.017 0 5.464 2.447 5.464 5.464 0 3.017-2.447 5.464-5.464 5.464-3.017 0-5.464-2.447-5.464-5.464zM12 16.757c2.458 0 4.464-2.006 4.464-4.464S14.458 7.829 12 7.829c-2.458 0-4.464 2.006-4.464 4.464S9.542 16.757 12 16.757zM5.636 5.636c0-1.585 1.285-2.871 2.871-2.871h6.986c1.585 0 2.871 1.285 2.871 2.871v12.728c0 1.585-1.285 2.871-2.871 2.871H8.507c-1.585 0-2.871-1.285-2.871-2.871V5.636zM8.507 3.765c-1.033 0-1.871.838-1.871 1.871v12.728c0 1.033.838 1.871 1.871 1.871h6.986c1.033 0 1.871-.838 1.871-1.871V5.636c0-1.033-.838-1.871-1.871-1.871H8.507z"/>
+                </svg>
+                <span class="nav-label">Profile</span>
+            </a>
+            
+            <!-- Text Label Toggle -->
+            <button class="nav-label-toggle" id="navLabelToggle" title="Toggle text labels">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Sign in to X</h2>
+            <input type="text" class="modal-input" placeholder="Username, email, or phone" aria-label="Username, email or phone">
+            <input type="password" class="modal-input" placeholder="Password" aria-label="Password">
+            <button class="modal-btn" id="loginSubmit">Sign in</button>
+            <p style="margin-top: 20px; text-align: center; color: var(--text-secondary);">
+                Don't have an account? <a href="#" style="color: var(--accent-blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
