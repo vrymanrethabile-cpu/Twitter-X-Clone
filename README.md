@@ -1,4 +1,4 @@
-# Twitter/X Clone - Kago Kgolagano Kola
+# Twitter/X Clone
 
 A fully functional Twitter/X timeline clone built with vanilla HTML, CSS, and JavaScript.
 
