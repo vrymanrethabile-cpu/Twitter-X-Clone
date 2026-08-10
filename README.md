@@ -110,4 +110,4 @@ For your Loom video walkthrough:
 
 ## Credits
 
-Built by Kago Kgolagano Kola for Zaio Project Simulation - Solo Twitter Project.
+Built by Rethabile Vryman for Zaio Project Simulation - Solo Twitter Project.
